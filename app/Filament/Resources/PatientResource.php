@@ -61,10 +61,21 @@ class PatientResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                ->searchable(),
+                Tables\Columns\TextColumn::make('type'),
+                Tables\Columns\TextColumn::make('date_of_birth')
+                ->sortable(),
+                Tables\Columns\TextColumn::make('owner.name')
+                ->searchable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('type')
+                ->options([
+                    'cat' => 'Cat',
+                    'dog' => 'Dog',
+                    'rabbit' => 'Rabbit',
+                ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -82,7 +93,7 @@ class PatientResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\TreatmentsRelationManager::class,
         ];
     }
 

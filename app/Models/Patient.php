@@ -11,6 +11,8 @@ class Patient extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function owner(): BelongsTo
     {
         return $this->belongsTo(Owner::class);
